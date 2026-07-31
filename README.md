@@ -35,16 +35,24 @@ npm run preview
 
 ## GitHub Pages
 
-사용자/조직 사이트나 커스텀 도메인은 기본 설정으로 빌드합니다. 저장소 하위 경로에 배포하는 project site라면 저장소 이름을 base path로 지정합니다.
+`main` 브랜치에 push하면 `.github/workflows/deploy-pages.yml`이 프로젝트을 빌드하고 GitHub Pages에 배포합니다.
+
+공개 주소:
+
+```text
+https://jesong-dev.github.io/letsgojeju2026/
+```
+
+워크플로는 저장소 하위 경로를 Vite base path로 지정합니다.
 
 ```bash
-VITE_BASE_PATH=/lets-go-jeju-2026/ npm run build
+VITE_BASE_PATH=/letsgojeju2026/ npm run build
 ```
 
 Windows PowerShell:
 
 ```powershell
-$env:VITE_BASE_PATH="/lets-go-jeju-2026/"; npm run build
+$env:VITE_BASE_PATH="/letsgojeju2026/"; npm run build
 ```
 
 이미지, 버전 링크와 archive 링크는 모두 Vite의 base path를 기준으로 생성되므로 저장소 하위 경로에서도 동작합니다.
