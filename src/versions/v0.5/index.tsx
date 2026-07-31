@@ -1,16 +1,14 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { sitePath } from "../../core/paths";
 import "./style.css";
 
 const easePaper = [0.22, 1, 0.36, 1] as const;
 
 const moments = [
-  { position: "16% 69%", caption: "산과 바다가 만나는 곳", tape: "olive", rotate: -2.2 },
-  { position: "82% 69%", caption: "천천히 쉬어 가는 오후", tape: "blue", rotate: 1.8 },
-  { position: "18% 35%", caption: "바람이 먼저 건네는 인사", tape: "orange", rotate: 1.2 },
-  { position: "80% 35%", caption: "따뜻한 아침의 기억", tape: "beige", rotate: -1.4 }
+  { category: "바다 또는 산책길", caption: "산과 바다가 만나는 길", tape: "blue", rotate: -2.2, symbol: "≋" },
+  { category: "억새 또는 숲", caption: "바람이 먼저 건네는 인사", tape: "olive", rotate: 1.8, symbol: "⌁" },
+  { category: "귤 또는 제주 음식", caption: "가을을 한입에 담는 순간", tape: "orange", rotate: -1.2, symbol: "●" }
 ] as const;
 
 const progress = [
@@ -167,34 +165,50 @@ function October() {
 }
 
 function Gallery() {
+  const [selectedMoment, setSelectedMoment] = useState<number | null>(null);
+  const toggleMoment = (index: number) => {
+    setSelectedMoment((current) => current === index ? null : index);
+  };
+
   return (
     <section className="v05-gallery">
       <div className="v05-section-title v05-section-title--center">
         <span>02 · FOUND MOMENTS</span>
         <h2>이런 풍경을<br />만날 수 있어요.</h2>
-        <p>사진 위에 손을 올려 보세요.</p>
+        <p><span className="v05-gallery-hint--desktop">사진 위에 손을 올려 보세요.</span><span className="v05-gallery-hint--mobile">사진을 눌러 보세요.</span></p>
       </div>
       <div className="v05-polaroids">
         {moments.map((moment, index) => (
           <motion.figure
             key={moment.caption}
-            className="v05-polaroid"
+            className={`v05-polaroid ${selectedMoment === index ? "is-selected" : ""}`}
             style={{ rotate: `${moment.rotate}deg` }}
             initial={{ opacity: 0, y: 50, rotate: moment.rotate * 2 }}
             whileInView={{ opacity: 1, y: 0, rotate: moment.rotate }}
-            whileHover={{ y: -14, rotate: 0, zIndex: 5 }}
+            whileHover={{ y: -10, rotate: 0, zIndex: 5 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ delay: index * 0.09, type: "spring", stiffness: 85, damping: 15 }}
           >
             <span className={`v05-tape v05-tape--${moment.tape}`} />
-            <div className="v05-polaroid__photo">
-              <img
-                src={sitePath(index < 2 ? "images/v0.5/resort-story.png" : "images/v0.5/resort-moments.png")}
-                alt=""
-                style={{ objectPosition: moment.position }}
-              />
-            </div>
-            <figcaption>{moment.caption}<small>{["바다", "쉼", "바람", "아침"][index]} · jeju</small></figcaption>
+            <motion.button
+              type="button"
+              className="v05-polaroid__photo"
+              aria-pressed={selectedMoment === index}
+              aria-label={`${moment.category} 이미지 슬롯: ${moment.caption}`}
+              onClick={() => toggleMoment(index)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  toggleMoment(index);
+                }
+              }}
+              whileTap={{ scale: 0.975 }}
+            >
+              <span className="v05-placeholder__symbol" aria-hidden="true">{moment.symbol}</span>
+              <strong>{moment.category}</strong>
+              <small>이미지 준비 중</small>
+            </motion.button>
+            <figcaption>{moment.caption}<small>{["바다", "억새", "귤"][index]} · jeju</small></figcaption>
           </motion.figure>
         ))}
       </div>

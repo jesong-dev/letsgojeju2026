@@ -19,10 +19,15 @@
   color: var(--v05-ink);
   font-family: "Noto Sans KR", Pretendard, sans-serif;
   background: #d7b47a;
+  overflow-x: clip;
 }
 
+.version-v0-5 #app,
+.version-v0-5 .v05-site,
+.version-v0-5 .v05-scrapbook { width: 100%; max-width: 100%; }
 .version-v0-5 button { font: inherit; }
-.version-v0-5 .v05-site { overflow: clip; }
+.version-v0-5 .v05-site { overflow-x: clip; }
+.version-v0-5 img { display: block; max-width: 100%; }
 
 .v05-opening {
   position: relative;
@@ -55,13 +60,14 @@
 .v05-opening__eyebrow {
   position: absolute;
   top: 38px;
-  left: 50%;
+  right: 0;
+  left: 0;
   margin: 0;
   color: #f4dec1;
   font-family: "V05 Hand", cursive;
   font-size: 14px;
   letter-spacing: .08em;
-  transform: translateX(-50%) rotate(-1deg);
+  text-align: center;
 }
 
 .v05-opening__hint {
@@ -369,7 +375,7 @@
 
 .v05-polaroids {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   align-items: start;
 }
@@ -381,17 +387,41 @@
   cursor: default;
   background: #f8f4eb;
   box-shadow: 0 18px 30px rgba(74, 51, 31, .18);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .v05-polaroid:nth-child(even) { margin-top: 60px; }
 .v05-polaroid__photo {
+  display: flex;
+  width: 100%;
   height: 270px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   overflow: hidden;
-  background: #d6c8b3;
-  filter: sepia(.08) saturate(.92);
+  border: 0;
+  color: #4f4639;
+  cursor: pointer;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.4), transparent),
+    #d9cfbd;
+  transition: box-shadow .25s ease, background-color .25s ease;
 }
 
-.v05-polaroid__photo img { width: 100%; height: 100%; object-fit: cover; }
+.v05-polaroid:nth-child(2) .v05-polaroid__photo { background-color: #cdd0b9; }
+.v05-polaroid:nth-child(3) .v05-polaroid__photo { background-color: #dfc39f; }
+.v05-polaroid__photo:hover,
+.v05-polaroid__photo:focus-visible,
+.v05-polaroid.is-selected .v05-polaroid__photo {
+  outline: 2px solid var(--v05-orange);
+  outline-offset: -5px;
+  box-shadow: inset 0 0 0 7px rgba(255, 250, 239, .55);
+}
+.v05-placeholder__symbol { color: var(--v05-orange); font: 48px Georgia, serif; }
+.v05-polaroid__photo strong { font: 700 15px "Noto Serif KR", serif; }
+.v05-polaroid__photo small { color: #6f6558; font-size: 11px; }
 .v05-polaroid figcaption {
   padding: 19px 5px 0;
   font-family: "V05 Hand", cursive;
@@ -409,6 +439,7 @@
 }
 
 .v05-polaroid .v05-tape { top: -14px; left: 50%; width: 78px; height: 29px; transform: translateX(-50%) rotate(-2deg); }
+.v05-gallery-hint--mobile { display: none; }
 .v05-tape--olive { background: #9da780; }
 .v05-tape--blue { background: #9bb6bf; }
 .v05-tape--orange { background: #dea170; }
@@ -591,14 +622,14 @@
   .v05-weather-note:nth-child(2),
   .v05-weather-note:nth-child(3) { border-bottom: 1px dashed rgba(76, 61, 44, .24); }
   .v05-weather-note:nth-child(3) { border-right: 0; }
-  .v05-polaroids { grid-template-columns: repeat(2, 1fr); max-width: 650px; margin-inline: auto; }
+  .v05-polaroids { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 650px; margin-inline: auto; }
   .v05-keywords__list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
   .v05-opening { padding-inline: 12px; }
   .v05-opening__eyebrow { width: 100%; text-align: center; }
-  .v05-envelope { width: 94vw; }
+  .v05-envelope { width: 100%; max-width: 382px; }
   .v05-envelope__front p { bottom: 12%; }
   .v05-envelope__letter { padding: 18px; }
   .v05-envelope__letter span { display: none; }
@@ -615,6 +646,8 @@
   .v05-polaroids { grid-template-columns: 1fr; gap: 55px; max-width: 330px; }
   .v05-polaroid:nth-child(even) { margin-top: 0; }
   .v05-polaroid__photo { height: 300px; }
+  .v05-gallery-hint--desktop { display: none; }
+  .v05-gallery-hint--mobile { display: inline; }
   .v05-keywords { padding: 55px 22px; }
   .v05-keywords__list > div { grid-template-columns: 44px 85px 1fr; padding-inline: 2px; }
   .v05-progress__path { min-height: 540px; }
@@ -632,6 +665,18 @@
   .v05-progress__steps .is-current { transform: none; }
   .v05-section-title h2 { font-size: clamp(37px, 12vw, 55px); }
   .v05-secret { margin-inline: -16px; }
+}
+
+@media (max-width: 430px) {
+  .v05-opening,
+  .v05-scrapbook { max-width: 100vw; }
+  .v05-envelope { width: 100%; max-width: 382px; }
+  .v05-letter,
+  .v05-october__sheet,
+  .v05-polaroid,
+  .v05-keywords { max-width: 100%; }
+  .v05-section-title { max-width: calc(100vw - 32px); }
+  .v05-secret__envelope { width: min(270px, calc(100vw - 64px)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
