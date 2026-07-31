@@ -101,6 +101,12 @@ async function render(): Promise<void> {
   if (versionId === "v0.4") {
     const { renderV04 } = await import("./versions/v0.4");
     renderV04(root);
+    return;
+  }
+
+  if (versionId === "v0.5") {
+    const { mountV05 } = await import("./versions/v0.5");
+    mountV05(root);
   }
 }
 

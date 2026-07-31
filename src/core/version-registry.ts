@@ -9,6 +9,15 @@ export const jejuVersions: readonly JejuVersion[] = [
     releasedAt: "2026-07-09",
     description: "여행 날짜와 제주 숙소가 정해진 순간을 담은 첫 공개 브로슈어.",
     path: sitePath("v0.4/"),
+    status: "archived"
+  },
+  {
+    id: "v0.5",
+    title: "10월의 제주",
+    subtitle: "제주에서 편지가 왔습니다",
+    releasedAt: "2026-07-31",
+    description: "봉투를 열며 시작되는, 10월 제주의 장면과 마음을 담은 인터랙티브 디지털 브로슈어.",
+    path: sitePath("v0.5/"),
     status: "published"
   }
 ] as const;
