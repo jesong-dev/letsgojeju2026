@@ -89,6 +89,24 @@
   animation: v05-bob 1.8s ease-in-out infinite;
 }
 
+.v05-letter-cue {
+  width: fit-content;
+  margin: -145px auto 145px;
+  color: var(--v05-brown);
+  font-family: "V05 Hand", cursive;
+  font-size: 14px;
+  letter-spacing: .05em;
+  text-align: center;
+}
+
+.v05-letter-cue span {
+  display: block;
+  margin-top: 8px;
+  color: var(--v05-orange);
+  font-size: 17px;
+  animation: v05-bob 1.8s ease-in-out infinite;
+}
+
 .v05-envelope {
   position: relative;
   width: min(680px, 64vw);
@@ -625,6 +643,7 @@
   .v05-postmark { width: 54px; }
   .v05-scrapbook { padding: 100px 16px; }
   .v05-letter { width: 100%; margin-bottom: 150px; padding: 55px 30px 80px; }
+  .v05-letter-cue { margin: -100px auto 100px; }
   .v05-letter__orange { display: none; }
   .v05-october,
   .v05-gallery,
@@ -669,5 +688,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .v05-opening__hint span { animation: none; }
+  .v05-opening__hint span,
+  .v05-letter-cue span { animation: none; }
 }

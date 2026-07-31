@@ -82,7 +82,7 @@ function Opening({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
       </motion.p>
       <Envelope opened={opened} onOpen={onOpen} />
       <AnimatePresence mode="wait">
-        {!opened ? (
+        {!opened && (
           <motion.p
             key="closed"
             className="v05-opening__hint"
@@ -92,16 +92,6 @@ function Opening({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
             transition={{ delay: 0.6 }}
           >
             봉투를 살며시 눌러 보세요 <span>↓</span>
-          </motion.p>
-        ) : (
-          <motion.p
-            key="opened"
-            className="v05-opening__hint"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3 }}
-          >
-            편지를 따라 천천히 내려가요 <span>↓</span>
           </motion.p>
         )}
       </AnimatePresence>
@@ -129,6 +119,20 @@ function IntroLetter() {
       <p className="v05-sign">제주를 기다리며, 2026 여름</p>
       <Doodle className="v05-letter__orange">●<i>⌁</i></Doodle>
     </motion.section>
+  );
+}
+
+function LetterScrollCue() {
+  return (
+    <motion.p
+      className="v05-letter-cue"
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.8 }}
+      transition={{ duration: 0.65, ease: easePaper }}
+    >
+      편지를 따라 천천히 내려가요 <span>↓</span>
+    </motion.p>
   );
 }
 
@@ -355,6 +359,7 @@ function App() {
         transition={{ duration: 0.9, delay: 0.8 }}
       >
         <IntroLetter />
+        <LetterScrollCue />
         <October />
         <Gallery />
         <Keywords />
