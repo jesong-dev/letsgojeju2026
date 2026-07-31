@@ -117,6 +117,7 @@ function IntroLetter() {
         <p>이 편지에는 그때 우리가 만나게 될 작은 장면들을 먼저 담아 두었어요.</p>
       </div>
       <p className="v05-sign">제주를 기다리며, 2026 여름</p>
+      <LetterScrollCue />
       <Doodle className="v05-letter__orange">●<i>⌁</i></Doodle>
     </motion.section>
   );
@@ -359,7 +360,6 @@ function App() {
         transition={{ duration: 0.9, delay: 0.8 }}
       >
         <IntroLetter />
-        <LetterScrollCue />
         <October />
         <Gallery />
         <Keywords />

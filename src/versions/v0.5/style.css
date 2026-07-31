@@ -91,7 +91,7 @@
 
 .v05-letter-cue {
   width: fit-content;
-  margin: -145px auto 145px;
+  margin: 72px auto 0;
   color: var(--v05-brown);
   font-family: "V05 Hand", cursive;
   font-size: 14px;
@@ -643,7 +643,7 @@
   .v05-postmark { width: 54px; }
   .v05-scrapbook { padding: 100px 16px; }
   .v05-letter { width: 100%; margin-bottom: 150px; padding: 55px 30px 80px; }
-  .v05-letter-cue { margin: -100px auto 100px; }
+  .v05-letter-cue { margin-top: 58px; }
   .v05-letter__orange { display: none; }
   .v05-october,
   .v05-gallery,
