@@ -7,11 +7,11 @@ import "./style.css";
 const easePaper = [0.22, 1, 0.36, 1] as const;
 
 const moments = [
-  { category: "바다", caption: "푸른 바다와 여유로운 시간", tape: "blue", rotate: -2.2, image: "seaside-cafe.webp", alt: "푸른 제주 바다를 바라보는 야외 카페 테이블" },
-  { category: "올레길", caption: "바람 따라 걷는 올레길", tape: "olive", rotate: 1.8, image: "silver-grass-path.webp", alt: "산을 향해 이어지는 억새 사이 산책길" },
-  { category: "노을", caption: "하루의 끝을 물들이는 아름다운 노을", tape: "orange", rotate: -1.2, image: "sunset.webp", alt: "주황빛 해가 제주 바다 위로 지는 노을" },
-  { category: "귤", caption: "탐스러운 귤 밭", tape: "beige", rotate: 1.4, image: "tangerines.webp", alt: "초록 잎 사이로 탐스럽게 익은 제주 귤" },
-  { category: "카페", caption: "바다 앞 카페에서 천천히, 여유", tape: "blue", rotate: -1.6, image: "ocean-table.webp", alt: "제주 바다가 보이는 카페 테이블의 음료와 디저트" }
+  { category: "바다", caption: "푸른 바다와 여유로운 시간", tape: "blue", rotate: -2.2, image: "sea-outdoor-table.jpg", alt: "바다를 바라보는 야외 카페 테이블" },
+  { category: "올레길", caption: "바람 따라 걷는 올레길", tape: "olive", rotate: 1.8, image: "silver-grass-path.jpg", alt: "가을 하늘 아래 펼쳐진 억새밭" },
+  { category: "노을", caption: "하루의 끝을 물들이는 아름다운 노을", tape: "orange", rotate: -1.2, image: "coastal-sunset.jpg", alt: "제주 바다와 검은 바위 위로 지는 노을" },
+  { category: "귤", caption: "탐스러운 귤 밭", tape: "beige", rotate: 1.4, image: "tangerine-tree.jpg", alt: "초록 잎 사이로 탐스럽게 익은 제주 감귤" },
+  { category: "카페", caption: "바다 앞 카페에서 천천히, 여유", tape: "blue", rotate: -1.6, image: "ocean-view-coffee.jpg", alt: "제주 바다가 보이는 카페의 음료 두 잔" }
 ] as const;
 
 const progress = [
@@ -207,7 +207,7 @@ function Gallery() {
               }}
               whileTap={{ scale: 0.975 }}
             >
-              <img src={sitePath(`images/v0.5/found-moments/${moment.image}`)} alt={moment.alt} />
+              <img src={sitePath(`assets/images/october-jeju/${moment.image}`)} alt={moment.alt} />
             </motion.button>
             <figcaption>{moment.caption}<small>{moment.category} · jeju</small></figcaption>
           </motion.figure>
