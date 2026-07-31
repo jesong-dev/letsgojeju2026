@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>떠나요 둘이서 · 제주 2026 — Dark Minimal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e17; --card:#12161f; --line:#232a38;
+    --cream:#f3eee2; --muted:#7c8395; --accent:#e2884f;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--bg); color:var(--cream); font-family:'Noto Sans KR',sans-serif; }
+  .wrap{ max-width:480px; margin:0 auto; padding:60px 24px 50px; }
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.3em; color:var(--muted); text-align:center; margin-bottom:22px; }
+  h1{ font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(28px,7vw,36px); line-height:1.4; text-align:center; margin:0 0 18px; }
+  h1 .accent{ color:var(--accent); }
+  .lede{ text-align:center; color:var(--muted); font-size:14px; line-height:1.75; max-width:320px; margin:0 auto 40px; }
+
+  .open-line{
+    border:1px solid var(--line); border-radius:2px; padding:20px 22px;
+    display:flex; justify-content:space-between; align-items:center; cursor:pointer;
+    transition: border-color .3s ease;
+  }
+  .open-line:hover{ border-color:var(--accent); }
+  .open-line .route{ font-family:'Noto Serif KR',serif; font-size:20px; }
+  .open-line .route .plane{ color:var(--accent); padding:0 6px; }
+  .open-line .hint{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--muted); }
+
+  .content{ max-height:0; overflow:hidden; transition:max-height .9s cubic-bezier(.2,.8,.3,1); }
+  .content.show{ max-height:2600px; }
+
+  .section{ margin-top:34px; }
+  .eyebrow-sm{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.16em; color:var(--accent); margin-bottom:10px; }
+  h2{ font-family:'Noto Serif KR',serif; font-weight:500; font-size:19px; margin:0 0 8px; }
+  p.sub{ color:var(--muted); font-size:13.5px; line-height:1.7; margin:0 0 18px; }
+
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px 12px; padding-top:6px; border-top:1px solid var(--line); margin-top:18px; }
+  .field-label{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.1em; margin-bottom:5px; }
+  .field-value{ font-weight:700; font-size:15px; }
+
+  .flight-row{ display:flex; align-items:center; gap:12px; padding:13px 4px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .flight-row .no{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted); width:24px; }
+  .flight-row .dates{ flex:1; font-weight:600; font-size:14.5px; }
+  .flight-row .days{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted); margin-top:2px; }
+  .flight-row .dot{ width:8px; height:8px; border-radius:50%; border:1.5px solid var(--muted); }
+  .flight-row.selected .dot{ background:var(--accent); border-color:var(--accent); }
+  .flight-row.selected .dates{ color:var(--accent); }
+
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; text-align:center; margin-top:16px; }
+  .cal-dow{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--muted); }
+  .cal-day{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); border-radius:4px; }
+  .cal-day.empty{ visibility:hidden; }
+  .cal-day.candidate{ color:var(--cream); }
+  .cal-day.sun{ color:#c97a63; } .cal-day.sat{ color:#6f9ec9; }
+  .cal-day.holiday{ font-weight:700; }
+  .cal-day.active{ background:var(--accent); color:#0a0e17; font-weight:700; }
+
+  .field{ margin-top:26px; }
+  .field label{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted); letter-spacing:.08em; display:block; margin-bottom:8px; }
+  .field input{ width:100%; background:transparent; border:none; border-bottom:1px solid var(--line); padding:10px 2px; color:var(--cream); font-size:14.5px; outline:none; font-family:'Noto Sans KR',sans-serif; }
+  .field input:focus{ border-color:var(--accent); }
+  .submit-btn{ width:100%; margin-top:18px; padding:14px; border:1px solid var(--accent); background:transparent; color:var(--accent); font-weight:600; font-size:14px; letter-spacing:.05em; cursor:pointer; transition:.2s ease; }
+  .submit-btn:not(:disabled):hover{ background:var(--accent); color:#0a0e17; }
+  .submit-btn:disabled{ border-color:var(--line); color:var(--muted); cursor:not-allowed; }
+  .hint{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); margin-top:8px; }
+  .status{ font-family:'IBM Plex Mono',monospace; font-size:12px; margin-top:8px; min-height:16px; }
+  .status.ok{ color:#7fbf8f; } .status.err{ color:#d97757; }
+
+  .m-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:13.5px; }
+  .m-row span:last-child{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); }
+  .empty{ color:var(--muted); font-size:13px; padding:14px 0; }
+  .warn{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent); border:1px solid var(--accent); padding:10px 14px; margin-bottom:20px; display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="warn" id="configWarning">Firebase 설정이 비어 있습니다. 화면 확인은 가능하나 저장은 되지 않습니다.</div>
+
+  <div class="eyebrow">떠나요 · 둘이서 · 2026</div>
+  <h1>일상은 잠시<br><span class="accent">접어두고</span>, 제주로</h1>
+  <p class="lede">눌러서 당신을 위한 여정을 확인해보세요.</p>
+
+  <div class="open-line" id="openLine">
+    <div class="route">SEL <span class="plane">—</span> CJU</div>
+    <div class="hint" id="openHint">탭하여 열기</div>
+  </div>
+
+  <div class="content" id="content">
+    <div class="section">
+      <div class="eyebrow-sm">BOARDING PASS · INVITATION</div>
+      <h2>느긋하게 그리고 즐겁게<br>시작하는 여정에 초대합니다</h2>
+      <p class="sub">이 초대장을 받으신 분께는 앞으로 몇 번 정도 질문을 드릴 예정이에요. 부담 갖지 마시고 편하게 답해주시면 돼요.</p>
+      <div class="grid2">
+        <div><div class="field-label">FROM</div><div class="field-value">일상 (SEL)</div></div>
+        <div><div class="field-label">TO</div><div class="field-value">제주 (CJU)</div></div>
+        <div><div class="field-label">DATE</div><div class="field-value">2026.10</div></div>
+        <div><div class="field-label">GATE</div><div class="field-value">Together</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="eyebrow-sm">DEPARTURE BOARD</div>
+      <h2>2박 3일, 언제가 좋아요?</h2>
+      <p class="sub">후보 중 하나를 골라주세요.</p>
+      <div id="flightList"></div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="field">
+        <label>NAME · 이름</label>
+        <input type="text" id="nameInput" placeholder="이름을 입력해주세요" maxlength="20">
+      </div>
+      <button class="submit-btn" id="submitBtn" disabled>체크인 완료</button>
+      <div class="hint" id="btnHint">날짜와 이름을 모두 입력하면 활성화돼요</div>
+      <div class="status" id="statusMsg"></div>
+    </div>
+
+    <div class="section">
+      <div class="eyebrow-sm">PASSENGER MANIFEST</div>
+      <div id="manifestList"><div class="empty">님만 오면 출발</div></div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  const CANDIDATES = [
+    { id:1, no:"01", start:"2026-10-02", end:"2026-10-04" },
+    { id:2, no:"02", start:"2026-10-03", end:"2026-10-05" },
+    { id:3, no:"03", start:"2026-10-04", end:"2026-10-06" },
+    { id:4, no:"04", start:"2026-10-08", end:"2026-10-10" },
+  ];
+  const DOW = ["일","월","화","수","목","금","토"];
+  const HOLIDAYS = new Set(["2026-10-03","2026-10-05","2026-10-09"]);
+  function fmtRange(s,e){ const a=new Date(s), b=new Date(e); return `${a.getMonth()+1}/${a.getDate()} - ${b.getMonth()+1}/${b.getDate()}`; }
+  function fmtDow(s,e){ const a=new Date(s), b=new Date(e); return `${DOW[a.getDay()]} - ${DOW[b.getDay()]} · 2박 3일`; }
+  function datesInRange(s,e){ const out=[]; let cur=new Date(s); const end=new Date(e); while(cur<=end){ out.push(cur.toISOString().slice(0,10)); cur=new Date(cur.getTime()+86400000);} return out; }
+
+  let selectedId = null;
+  const flightList = document.getElementById("flightList");
+  function renderFlights(){
+    flightList.innerHTML = "";
+    CANDIDATES.forEach(c => {
+      const row = document.createElement("div");
+      row.className = "flight-row" + (selectedId===c.id ? " selected" : "");
+      row.innerHTML = `<span class="no">${c.no}</span><div style="flex:1;"><div class="dates">${fmtRange(c.start,c.end)}</div><div class="days">${fmtDow(c.start,c.end)}</div></div><div class="dot"></div>`;
+      row.addEventListener("click", () => { selectedId=c.id; renderFlights(); renderCalendar(); updateSubmitState(); });
+      flightList.appendChild(row);
+    });
+  }
+
+  const calGrid = document.getElementById("calGrid");
+  function renderCalendar(){
+    calGrid.innerHTML = "";
+    DOW.forEach((d,i) => { const el=document.createElement("div"); el.className="cal-dow"; el.textContent=d; calGrid.appendChild(el); });
+    const year=2026, month=9;
+    const firstDay = new Date(year,month,1).getDay();
+    const daysInMonth = new Date(year,month+1,0).getDate();
+    const allCand = new Set(CANDIDATES.flatMap(c=>datesInRange(c.start,c.end)));
+    const sel = CANDIDATES.find(c=>c.id===selectedId);
+    const active = sel ? new Set(datesInRange(sel.start,sel.end)) : new Set();
+    for(let i=0;i<firstDay;i++){ const el=document.createElement("div"); el.className="cal-day empty"; calGrid.appendChild(el); }
+    for(let d=1; d<=daysInMonth; d++){
+      const iso = `${year}-10-${String(d).padStart(2,"0")}`;
+      const dow = new Date(year,month,d).getDay();
+      const el = document.createElement("div");
+      let cls="cal-day";
+      if(dow===0) cls+=" sun"; if(dow===6) cls+=" sat";
+      if(HOLIDAYS.has(iso)) cls+=" holiday";
+      if(allCand.has(iso)) cls+=" candidate";
+      if(active.has(iso)) cls+=" active";
+      el.className=cls; el.textContent=d;
+      calGrid.appendChild(el);
+    }
+  }
+  renderFlights(); renderCalendar();
+
+  const openLine = document.getElementById("openLine");
+  const openHint = document.getElementById("openHint");
+  const content = document.getElementById("content");
+  let opened = false;
+  openLine.addEventListener("click", () => {
+    opened = !opened;
+    content.classList.toggle("show", opened);
+    openHint.textContent = opened ? "탭하여 닫기" : "탭하여 열기";
+    if (opened) setTimeout(() => content.scrollIntoView({behavior:"smooth", block:"start"}), 450);
+  });
+
+  const nameInput = document.getElementById("nameInput");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusMsg = document.getElementById("statusMsg");
+  const btnHint = document.getElementById("btnHint");
+  function updateSubmitState(){
+    const ready = !!(selectedId && nameInput.value.trim().length>0);
+    submitBtn.disabled = !ready;
+    btnHint.style.display = ready ? "none" : "block";
+  }
+  nameInput.addEventListener("input", updateSubmitState);
+  updateSubmitState();
+
+  let db=null, fb=null, dbReady=false;
+  const manifestList = document.getElementById("manifestList");
+  function escapeHtml(str){ return String(str).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
+  function renderManifest(docs){
+    if(!docs.length){ manifestList.innerHTML = `<div class="empty">님만 오면 출발</div>`; return; }
+    manifestList.innerHTML = "";
+    docs.forEach(d => {
+      const row = document.createElement("div");
+      row.className = "m-row";
+      row.innerHTML = `<span>${escapeHtml(d.name||"")}</span><span>${escapeHtml(d.dateChoice||"")}</span>`;
+      manifestList.appendChild(row);
+    });
+  }
+
+  submitBtn.addEventListener("click", async () => {
+    const c = CANDIDATES.find(x=>x.id===selectedId);
+    if(!c) return;
+    if(!dbReady || !fb){ statusMsg.textContent="저장 기능이 꺼져 있어요."; statusMsg.className="status err"; return; }
+    submitBtn.disabled = true;
+    statusMsg.textContent = "저장 중...";
+    statusMsg.className = "status";
+    try{
+      await fb.addDoc(fb.collection(db,"responses"), {
+        name: nameInput.value.trim(), dateChoice: fmtRange(c.start,c.end), flightNo:c.no, submittedAt: fb.serverTimestamp()
+      });
+      statusMsg.textContent = "체크인이 완료됐어요!";
+      statusMsg.className = "status ok";
+      nameInput.value=""; selectedId=null; renderFlights(); renderCalendar();
+    }catch(e){
+      console.error(e);
+      statusMsg.textContent = "저장에 실패했어요.";
+      statusMsg.className = "status err";
+    } finally { updateSubmitState(); }
+  });
+
+  async function connectFirebase(){
+    const warning = document.getElementById("configWarning");
+    const firebaseConfig = {
+      apiKey:"여기에_API_KEY", authDomain:"여기에_PROJECT_ID.firebaseapp.com",
+      projectId:"여기에_PROJECT_ID", storageBucket:"여기에_PROJECT_ID.appspot.com",
+      messagingSenderId:"여기에_SENDER_ID", appId:"여기에_APP_ID"
+    };
+    const isConfigured = !Object.values(firebaseConfig).some(v => String(v).includes("여기에"));
+    if(!isConfigured){ warning.style.display="block"; return; }
+    try{
+      const [{initializeApp}, fs] = await Promise.all([
+        import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+        import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
+      ]);
+      const app = initializeApp(firebaseConfig);
+      db = fs.getFirestore(app);
+      fb = { collection: fs.collection, addDoc: fs.addDoc, serverTimestamp: fs.serverTimestamp };
+      dbReady = true;
+      const q = fs.query(fs.collection(db,"responses"), fs.orderBy("submittedAt","asc"));
+      fs.onSnapshot(q, snap => renderManifest(snap.docs.map(d=>d.data())));
+    }catch(e){
+      console.error("Firebase 연결 실패:", e);
+      warning.textContent = "Firebase에 연결하지 못했어요. 화면은 정상 동작해요.";
+      warning.style.display = "block";
+    }
+  }
+  connectFirebase();
+</script>
+</body>
+</html>

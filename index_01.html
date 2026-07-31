@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>초대장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep: #0E2C34;
+    --bg-deep-2: #123642;
+    --paper: #EFE4CC;
+    --paper-shadow: #d9caa6;
+    --tangerine: #E2682B;
+    --ink: #20302C;
+    --ink-soft: #4d5a52;
+    --gold: #C9A227;
+    --navy-stripe: #1B4965;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 120% 80% at 50% -10%, #1a4250 0%, var(--bg-deep) 55%, #081b21 100%);
+    min-height:100vh;
+    font-family:'Noto Sans KR', sans-serif;
+    color: var(--paper);
+    overflow-x:hidden;
+    position:relative;
+  }
+  .sky-line{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.5;
+  }
+  .stars{position:absolute; border-radius:50%; background:#fff; opacity:0.5;}
+
+  .plane-trail{
+    position:absolute; top:8%; left:-10%;
+    width:42px; height:42px;
+    animation: fly 22s linear infinite;
+    opacity:0.8;
+  }
+  @keyframes fly{
+    0%{ left:-10%; top:10%; transform:rotate(8deg);}
+    50%{ left:55%; top:6%; transform:rotate(8deg);}
+    100%{ left:120%; top:2%; transform:rotate(8deg);}
+  }
+
+  .stage{
+    position:relative; z-index:2;
+    min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding: 4rem 1.5rem 6rem;
+    text-align:center;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px; letter-spacing:0.32em;
+    color: #9FC4CE;
+    margin-bottom: 1.1rem;
+    text-transform:uppercase;
+  }
+  .hero-title{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    line-height:1.15;
+    color:#F8F1DE;
+    margin:0 0 0.6rem;
+  }
+  .hero-title em{
+    font-style:italic; font-weight:400; color: var(--tangerine);
+  }
+  .hero-sub{
+    font-size:14px; color:#B7CDD2; max-width: 360px; margin: 0 auto 3.2rem;
+    line-height:1.7;
+  }
+
+  .scene{
+    position:relative;
+    width: min(360px, 86vw);
+    height: 480px;
+    perspective: 1400px;
+  }
+
+  .envelope{
+    position:absolute; left:0; right:0; bottom:0;
+    height: 230px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .env-pocket{
+    position:absolute; inset:0;
+    background: var(--paper);
+    border-radius: 6px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.55), 0 4px 0 var(--paper-shadow) inset;
+    overflow:hidden;
+  }
+  .stripe-border{
+    position:absolute; inset:0;
+    border-radius:6px;
+    padding:7px;
+    pointer-events:none;
+  }
+  .stripe-border::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:6px;
+    background:
+      repeating-linear-gradient(135deg, var(--navy-stripe) 0 14px, transparent 14px 22px, var(--tangerine) 22px 36px, transparent 36px 44px);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    padding:7px;
+  }
+  .pocket-inner{
+    position:absolute; left:7px; right:7px; top:7px; bottom:7px;
+    background: var(--paper);
+    border-radius:3px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding: 16px 18px 14px;
+    text-align:left;
+  }
+  .pocket-row-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+  }
+  .airline{
+    font-family:'Space Mono', monospace;
+    font-size:11px; letter-spacing:0.14em;
+    color: var(--ink-soft);
+  }
+  .airline b{ color:var(--ink); font-weight:700; }
+  .stamp{
+    width:46px; height:46px;
+    border:1.5px dashed var(--tangerine);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace;
+    font-size:9px; color:var(--tangerine);
+    text-align:center; line-height:1.2;
+    transform: rotate(8deg);
+    flex-shrink:0;
+  }
+  .route{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 30px;
+    color: var(--ink);
+    display:flex; align-items:center; gap:10px;
+  }
+  .route .code{ font-size:30px; }
+  .route .arrow{
+    font-family:'Space Mono', monospace;
+    color: var(--tangerine);
+    font-size:18px;
+  }
+  .route-sub{
+    font-family:'Space Mono', monospace;
+    font-size:10px; color: var(--ink-soft); letter-spacing:0.08em; margin-top:2px;
+  }
+  .tap-hint{
+    font-family:'Space Mono', monospace;
+    font-size:10px; letter-spacing:0.16em;
+    color: var(--tangerine);
+    text-align:center;
+    text-transform:uppercase;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .tap-hint .dot{
+    width:5px; height:5px; border-radius:50%; background: var(--tangerine);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+  .flap{
+    position:absolute; left:0; right:0; top:0;
+    height: 130px;
+    transform-origin: top center;
+    transition: transform 0.7s cubic-bezier(.25,.9,.3,1.3);
+    z-index:3;
+  }
+  .flap svg{ display:block; width:100%; height:100%; }
+  .scene.open .flap{ transform: rotateX(178deg); }
+
+  .ticket{
+    position:absolute; left:50%; bottom: 70px;
+    width: 84%;
+    transform: translate(-50%, 0px) rotate(0deg) scale(0.92);
+    background: #fffdf6;
+    border-radius: 4px;
+    box-shadow: 0 18px 40px -14px rgba(0,0,0,0.5);
+    transition: transform 0.85s cubic-bezier(.2,.85,.25,1.15), opacity 0.6s ease;
+    z-index:1;
+    opacity:0;
+    pointer-events:none;
+  }
+  .scene.open .ticket{
+    transform: translate(-50%, -250px) rotate(-3deg) scale(1);
+    opacity:1;
+    pointer-events:auto;
+    z-index: 5;
+  }
+
+  .ticket-body{
+    padding: 22px 22px 0;
+    text-align:left;
+    color: var(--ink);
+  }
+  .ticket-eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:10px; letter-spacing:0.2em; color: var(--tangerine);
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .ticket-title{
+    font-family:'Fraunces', serif;
+    font-weight:600; font-size:22px; line-height:1.35; color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .ticket-desc{
+    font-size:12.5px; color: var(--ink-soft); line-height:1.75; margin-bottom:16px;
+  }
+  .ticket-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap: 10px 14px;
+    border-top: 1px dashed #cfc6ac;
+    padding-top:14px; margin-bottom: 14px;
+  }
+  .ticket-field span{ display:block; }
+  .ticket-field .label{
+    font-family:'Space Mono', monospace; font-size:9px; letter-spacing:0.1em;
+    color:#9b9170; text-transform:uppercase; margin-bottom:3px;
+  }
+  .ticket-field .value{ font-size:13px; font-weight:500; color: var(--ink); }
+
+  .perforation{
+    position:relative; height:18px; margin: 0 -22px;
+  }
+  .perforation::before{
+    content:"";
+    position:absolute; left:0; right:0; top:8px;
+    border-top: 2px dashed #d8cead;
+  }
+  .perforation .notch{
+    position:absolute; top:-9px; width:18px; height:18px; border-radius:50%;
+    background: var(--bg-deep-2);
+  }
+  .scene.open .perforation .notch{ background: var(--bg-deep-2); }
+  .perforation .notch.left{ left:-9px; }
+  .perforation .notch.right{ right:-9px; }
+
+  .barcode-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 22px 18px;
+  }
+  .barcode{
+    display:flex; align-items:flex-end; gap:2px; height:34px;
+  }
+  .barcode span{ width:2px; background: var(--ink); display:block; }
+  .seat-tag{
+    font-family:'Space Mono', monospace; font-size:10px; color: var(--ink-soft);
+    text-align:right; line-height:1.6;
+  }
+  .seat-tag b{ color:var(--tangerine); font-size:13px; }
+
+  .footnote{
+    margin-top: 2.6rem;
+    font-size:11px; color:#7c95a0; letter-spacing:0.04em;
+  }
+</style>
+</head>
+<body>
+
+<svg class="sky-line" aria-hidden="true">
+  <circle class="stars" cx="8%" cy="14%" r="1.4"></circle>
+  <circle class="stars" cx="22%" cy="8%" r="1"></circle>
+  <circle class="stars" cx="38%" cy="20%" r="1.6"></circle>
+  <circle class="stars" cx="64%" cy="10%" r="1"></circle>
+  <circle class="stars" cx="78%" cy="22%" r="1.3"></circle>
+  <circle class="stars" cx="91%" cy="12%" r="1"></circle>
+  <circle class="stars" cx="50%" cy="6%" r="1.2"></circle>
+</svg>
+
+<svg class="plane-trail" viewBox="0 0 64 64" aria-hidden="true">
+  <path d="M4 34 L46 30 L58 22 L62 24 L54 34 L62 36 L62 40 L46 36 L30 46 L36 48 L34 51 L20 48 L4 34Z" fill="#F4E9D8" opacity="0.85"/>
+</svg>
+
+<div class="stage">
+  <div class="eyebrow">떠나요 둘이서 2026</div>
+  <h1 class="hero-title">일상은 잠시<br><em>접어두고</em>, 제주로</h1>
+  <p class="hero-sub">봉투를 눌러보세요. 그 안에 당신을 위한<br>탑승권 한 장이 들어있습니다.</p>
+
+  <div class="scene" id="scene">
+
+    <div class="ticket" id="ticket">
+      <div class="ticket-body">
+        <div class="ticket-eyebrow">Boarding pass · Invitation</div>
+        <h2 class="ticket-title">느긋하게 그리고 즐겁게<br>시작하는 여정에 초대합니다</h2>
+        <p class="ticket-desc">이 초대장을 받은 고객님은 앞으로 3개월 동안<br>가끔 질문을 받게 됩니다. 부담 갖지 마시고<br>편하게 대답해주세요. 😄</p>
+        <div class="ticket-grid">
+          <div class="ticket-field"><span class="label">From</span><span class="value">일상 (SEL)</span></div>
+          <div class="ticket-field"><span class="label">To</span><span class="value">제주 (CJU)</span></div>
+          <div class="ticket-field"><span class="label">Date</span><span class="value">2026.10</span></div>
+          <div class="ticket-field"><span class="label">Gate</span><span class="value">Together</span></div>
+        </div>
+      </div>
+      <div class="perforation"><span class="notch left"></span><span class="notch right"></span></div>
+      <div class="barcode-row">
+        <div class="barcode" id="barcode"></div>
+        <div class="seat-tag">SEAT<br><b>READY</b></div>
+      </div>
+    </div>
+
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="봉투를 눌러 초대장 펼치기">
+      <div class="env-pocket">
+        <div class="stripe-border"></div>
+        <div class="pocket-inner">
+          <div class="pocket-row-top">
+            <div class="airline"><b>JEJU AIR LETTERS</b><br>e-ticket envelope</div>
+            <div class="stamp">JEJU<br>2026</div>
+          </div>
+          <div>
+            <div class="route"><span class="code">SEL</span><span class="arrow">✈</span><span class="code">CJU</span></div>
+            <div class="route-sub">PRESS TO OPEN INVITATION</div>
+          </div>
+          <div class="tap-hint"><span class="dot"></span>탭하여 열기<span class="dot"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flap" id="flap">
+      <svg viewBox="0 0 300 130" preserveAspectRatio="none">
+        <path d="M0 130 L150 8 L300 130 Z" fill="#EFE4CC"/>
+        <path d="M0 130 L150 8 L300 130 Z" fill="none" stroke="#d9caa6" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+
+  <p class="footnote">v0.1 시작합니다.</p>
+</div>
+
+<script>
+  const scene = document.getElementById('scene');
+  const envelope = document.getElementById('envelope');
+
+  function toggleOpen(){
+    scene.classList.toggle('open');
+  }
+  envelope.addEventListener('click', toggleOpen);
+  envelope.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleOpen(); }
+  });
+
+  const barcode = document.getElementById('barcode');
+  let bars = '';
+  for(let i=0;i<34;i++){
+    const h = 14 + Math.round(Math.random()*20);
+    bars += '<span style="height:'+h+'px;"></span>';
+  }
+  barcode.innerHTML = bars;
+</script>
+
+</body>
+</html>

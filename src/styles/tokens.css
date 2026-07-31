@@ -1,0 +1,12 @@
+:root {
+  --color-night: #060811;
+  --color-sky: #0a0e17;
+  --color-cream: #f3eee2;
+  --color-muted: #a7a091;
+  --color-orange: #e2884f;
+  --color-lavender: #b9a3d8;
+  --color-line: rgba(243, 238, 226, .16);
+  --page-width: 520px;
+  --space-page: clamp(20px, 6vw, 32px);
+  --radius-card: 18px;
+}

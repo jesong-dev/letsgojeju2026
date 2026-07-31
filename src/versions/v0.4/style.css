@@ -1,0 +1,125 @@
+/* Snapshot-scoped v0.4 styles. Keep changes inside .version-v0-4. */
+.version-v0-4 {
+  --v04-bg: #0a0e17;
+  --v04-bg-deep: #060811;
+  --v04-envelope: #2c2416;
+  --v04-envelope-edge: #1b160d;
+  --v04-cream: #f3eee2;
+  --v04-accent: #e2884f;
+  --v04-lavender: #b9a3d8;
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--v04-cream);
+  font-family: "Noto Sans KR", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1px 1px at 10% 15%, rgba(255, 255, 255, .5), transparent),
+    radial-gradient(1px 1px at 25% 45%, rgba(255, 255, 255, .35), transparent),
+    radial-gradient(1.5px 1.5px at 60% 10%, rgba(255, 255, 255, .5), transparent),
+    radial-gradient(1px 1px at 80% 30%, rgba(255, 255, 255, .4), transparent),
+    radial-gradient(1px 1px at 45% 70%, rgba(255, 255, 255, .3), transparent),
+    radial-gradient(1.5px 1.5px at 90% 65%, rgba(255, 255, 255, .45), transparent),
+    radial-gradient(1px 1px at 15% 85%, rgba(255, 255, 255, .3), transparent),
+    linear-gradient(180deg, var(--v04-bg-deep), var(--v04-bg) 40%, var(--v04-bg));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+.version-v0-4 .v04-wrap {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: max(56px, env(safe-area-inset-top)) 24px max(40px, env(safe-area-inset-bottom));
+}
+
+.version-v0-4 .v04-hero h1 {
+  margin: 0 0 18px;
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-size: clamp(28px, 7vw, 38px);
+  font-weight: 900;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.version-v0-4 .v04-hero h1 span {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--v04-accent);
+  font-size: .667em;
+}
+
+.version-v0-4 .v04-plane {
+  position: absolute;
+  z-index: 1;
+  top: 130px;
+  left: 0;
+  color: var(--v04-lavender);
+  opacity: .65;
+  pointer-events: none;
+  animation: v04-plane-float 20s linear infinite;
+}
+
+@keyframes v04-plane-float {
+  0% { transform: translate(0, 0) rotate(-6deg); }
+  46% { transform: translate(calc(100vw - 46px), -110px) rotate(8deg); }
+  52% { transform: translate(calc(100vw - 46px), -110px) rotate(188deg); }
+  96% { transform: translate(0, 0) rotate(196deg); }
+  100% { transform: translate(0, 0) rotate(354deg); }
+}
+
+.version-v0-4 .v04-envelope-stage {
+  max-width: 420px;
+  margin: 0 auto 8px;
+}
+
+.version-v0-4 .v04-stay-photo {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--v04-envelope-edge);
+  border-radius: 16px;
+  background: var(--v04-envelope);
+}
+
+.version-v0-4 .v04-stay-photo picture,
+.version-v0-4 .v04-stay-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.version-v0-4 .v04-stay-photo img {
+  object-fit: cover;
+}
+
+.version-v0-4 .v04-stay-photo figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 20px 22px 18px;
+  color: var(--v04-cream);
+  font-family: "Noto Serif KR", Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(to top, rgba(10, 14, 23, .92) 20%, rgba(10, 14, 23, .25) 75%, transparent);
+}
+
+.version-v0-4 .v04-foot {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 44px;
+  color: var(--v04-accent);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: .05em;
+}
+
+.version-v0-4 .v04-foot a {
+  color: var(--v04-cream);
+  text-underline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .version-v0-4 .v04-plane { animation: none; }
+}
