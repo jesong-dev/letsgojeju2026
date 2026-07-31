@@ -375,7 +375,7 @@
 
 .v05-polaroids {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px;
   align-items: start;
 }
@@ -393,25 +393,17 @@
 
 .v05-polaroid:nth-child(even) { margin-top: 60px; }
 .v05-polaroid__photo {
-  display: flex;
+  display: block;
   width: 100%;
   height: 270px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   overflow: hidden;
   border: 0;
-  color: #4f4639;
   cursor: pointer;
-  background:
-    linear-gradient(145deg, rgba(255,255,255,.4), transparent),
-    #d9cfbd;
-  transition: box-shadow .25s ease, background-color .25s ease;
+  background: transparent;
+  transition: box-shadow .25s ease;
 }
 
-.v05-polaroid:nth-child(2) .v05-polaroid__photo { background-color: #cdd0b9; }
-.v05-polaroid:nth-child(3) .v05-polaroid__photo { background-color: #dfc39f; }
+.v05-polaroid__photo img { width: 100%; height: 100%; object-fit: cover; }
 .v05-polaroid__photo:hover,
 .v05-polaroid__photo:focus-visible,
 .v05-polaroid.is-selected .v05-polaroid__photo {
@@ -419,9 +411,6 @@
   outline-offset: -5px;
   box-shadow: inset 0 0 0 7px rgba(255, 250, 239, .55);
 }
-.v05-placeholder__symbol { color: var(--v05-orange); font: 48px Georgia, serif; }
-.v05-polaroid__photo strong { font: 700 15px "Noto Serif KR", serif; }
-.v05-polaroid__photo small { color: #6f6558; font-size: 11px; }
 .v05-polaroid figcaption {
   padding: 19px 5px 0;
   font-family: "V05 Hand", cursive;

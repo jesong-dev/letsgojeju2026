@@ -1,14 +1,16 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { sitePath } from "../../core/paths";
 import "./style.css";
 
 const easePaper = [0.22, 1, 0.36, 1] as const;
 
 const moments = [
-  { category: "바다 또는 산책길", caption: "산과 바다가 만나는 길", tape: "blue", rotate: -2.2, symbol: "≋" },
-  { category: "억새 또는 숲", caption: "바람이 먼저 건네는 인사", tape: "olive", rotate: 1.8, symbol: "⌁" },
-  { category: "귤 또는 제주 음식", caption: "가을을 한입에 담는 순간", tape: "orange", rotate: -1.2, symbol: "●" }
+  { category: "산과 바다 뷰", caption: "산과 바다가 만나는 길", tape: "blue", rotate: -2.2, image: "mountain-sea.webp", alt: "산방산과 제주 바다가 한눈에 펼쳐지는 풍경" },
+  { category: "조식", caption: "제주로 시작하는 따뜻한 아침", tape: "beige", rotate: 1.8, image: "breakfast.webp", alt: "창가 테이블에 차려진 빵과 샐러드, 달걀과 음료 조식" },
+  { category: "욕조", caption: "천천히 쉬어 가는 오후", tape: "orange", rotate: -1.2, image: "whirlpool.webp", alt: "초록 나무가 보이는 창가의 넓은 월풀 욕조" },
+  { category: "편안한 객실", caption: "자연을 바라보며 쉬는 방", tape: "olive", rotate: 1.4, image: "room.webp", alt: "산과 바다가 보이는 창을 마주한 밝고 편안한 객실" }
 ] as const;
 
 const progress = [
@@ -194,7 +196,7 @@ function Gallery() {
               type="button"
               className="v05-polaroid__photo"
               aria-pressed={selectedMoment === index}
-              aria-label={`${moment.category} 이미지 슬롯: ${moment.caption}`}
+              aria-label={`${moment.category} 사진: ${moment.caption}`}
               onClick={() => toggleMoment(index)}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
@@ -204,11 +206,9 @@ function Gallery() {
               }}
               whileTap={{ scale: 0.975 }}
             >
-              <span className="v05-placeholder__symbol" aria-hidden="true">{moment.symbol}</span>
-              <strong>{moment.category}</strong>
-              <small>이미지 준비 중</small>
+              <img src={sitePath(`images/v0.5/${moment.image}`)} alt={moment.alt} />
             </motion.button>
-            <figcaption>{moment.caption}<small>{["바다", "억새", "귤"][index]} · jeju</small></figcaption>
+            <figcaption>{moment.caption}<small>{moment.category} · jeju</small></figcaption>
           </motion.figure>
         ))}
       </div>
