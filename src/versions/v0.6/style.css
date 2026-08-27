@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
+@import "tailwindcss";
+
+@font-face { font-family: "V06 Hand"; src: local("Nanum Pen Script"), local("Segoe Print"); }
+
+.version-v0-6 {
+  --ink: #332f29;
+  --paper: #f8f0df;
+  --paper-edge: #decdb0;
+  --desk: #e9dfcc;
+  --blue: #536f76;
+  --red: #9e5749;
+  min-width: 320px;
+  margin: 0;
+  color: var(--ink);
+  font-family: "V06 Hand", "Noto Serif KR", serif;
+  background: var(--desk);
+  overflow-x: clip;
+}
+
+.version-v0-6 button, .version-v0-6 a { font: inherit; }
+.v06-site { min-height: 100svh; overflow: clip; background: var(--desk); }
+
+/* 책상 한쪽에 적어 둔 이름과 문장 */
+.v06-header { position: absolute; z-index: 30; inset: 0 0 auto; height: 0; pointer-events: none; }
+.v06-header a { position: absolute; top: clamp(24px,4vw,52px); left: clamp(24px,5vw,74px); color: var(--ink); font-size: clamp(22px,2.7vw,36px); font-weight: 700; line-height: .88; letter-spacing: -.06em; text-decoration: none; transform: rotate(-3deg); pointer-events: auto; }
+.v06-header a span { font-size: .62em; font-weight: 400; letter-spacing: .14em; }
+.v06-header p { position: absolute; top: clamp(34px,5vw,67px); right: clamp(24px,6vw,86px); min-width: 180px; margin: 0; font-size: clamp(12px,1.25vw,15px); line-height: 1.5; text-align: right; word-break: keep-all; transform: rotate(1deg); }
+.v06-header p span { display: block; margin-bottom: 7px; color: var(--blue); font: 700 8px ui-monospace,monospace; letter-spacing: .18em; }
+
+/* 첫 장면: 화면이 아니라, 오전 빛이 비치는 하나의 책상 */
+.v06-arrival { position: relative; min-height: max(780px,100svh); isolation: isolate; background: repeating-radial-gradient(circle at 17% 23%,rgba(65,49,32,.035) 0 1px,transparent 1.2px 5px),linear-gradient(92deg,transparent 0 14%,rgba(255,255,255,.25) 35%,transparent 58%),var(--desk); box-shadow: inset 0 -30px 70px rgba(105,82,52,.06); }
+.v06-arrival::before { position: absolute; z-index: -1; top: -12%; left: 28%; width: 28%; height: 95%; background: linear-gradient(103deg,transparent,rgba(255,255,255,.68),transparent); filter: blur(22px); content: ""; transform: rotate(8deg); }
+.v06-arrival::after { position: absolute; z-index: -1; right: -7%; bottom: -8%; width: 36%; height: 70%; border-radius: 55% 0 0; background: radial-gradient(ellipse at 70% 45%,rgba(62,72,43,.17),transparent 55%); filter: blur(12px); content: ""; pointer-events: none; }
+.v06-sunwash { position: absolute; z-index: -1; inset: 0; opacity: .26; pointer-events: none; background: linear-gradient(18deg,transparent 0 64%,rgba(93,103,63,.22) 65%,transparent 73%); filter: blur(18px); }
+
+/* 화면 바깥까지 이어지는 여행자의 작업대 */
+.v06-travel-props { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.v06-notebook { position: absolute; top: 20%; right: -5%; display: block; width: min(330px,25vw); height: 360px; padding: 52px 42px; border-left: 9px double rgba(61,76,69,.2); color: #66736d; background: repeating-linear-gradient(0deg,transparent 0 30px,rgba(80,109,112,.13) 30px 31px),#f2eee2; box-shadow: -12px 20px 30px rgba(64,49,30,.12); transform: rotate(6deg); }
+.v06-notebook b { font: 12px ui-monospace,monospace; letter-spacing: .08em; }.v06-notebook i { display: block; margin-top: 30px; font: italic 14px/31px "V06 Hand",cursive; }
+.v06-pencil { position: absolute; right: 21%; bottom: 3%; width: 11px; height: 310px; border-radius: 3px 3px 0 0; background: linear-gradient(90deg,#bf755d 0 25%,#d89479 25% 75%,#a95d4d 75%); box-shadow: 5px 9px 8px rgba(60,42,23,.14); transform: rotate(54deg); }
+.v06-pencil::before { position: absolute; top: -23px; left: 0; border-right: 5.5px solid transparent; border-bottom: 24px solid #d7bf97; border-left: 5.5px solid transparent; content: ""; }.v06-pencil::after { position: absolute; top: -23px; left: 4px; border-right: 1.5px solid transparent; border-bottom: 7px solid #3f392f; border-left: 1.5px solid transparent; content: ""; }
+.v06-luggage-tag { position: absolute; bottom: 5%; left: -2%; display: flex; width: 180px; height: 92px; flex-direction: column; justify-content: center; padding-left: 48px; border: 1px solid rgba(70,62,49,.2); color: #635f56; background: #d5c89e; box-shadow: 6px 12px 18px rgba(60,45,29,.12); transform: rotate(8deg); }
+.v06-luggage-tag::before { position: absolute; top: 50%; left: 14px; width: 17px; aspect-ratio: 1; border: 4px solid #ece3ce; border-radius: 50%; background: #a89e7e; content: ""; transform: translateY(-50%); }.v06-luggage-tag small { font: 10px ui-monospace,monospace; }.v06-luggage-tag b { font: 22px/1 ui-monospace,monospace; }.v06-luggage-tag i { font-size: 9px; line-height: 1.2; }
+.v06-coffee-ring { position: absolute; top: 16%; left: 38%; width: 118px; aspect-ratio: 1; border: 8px solid rgba(126,88,51,.08); border-radius: 50%; box-shadow: 3px 2px 0 rgba(126,88,51,.04); transform: scaleY(.94) rotate(8deg); }
+.v06-photo { position: absolute; top: 8%; left: -5%; width: 230px; aspect-ratio: .8; padding: 13px 13px 48px; background: #f8f3e9; box-shadow: 10px 18px 25px rgba(62,48,31,.12); transform: rotate(-9deg); }
+.v06-photo::before { display: block; width: 100%; height: 100%; background: linear-gradient(180deg,#c5dce0 0 43%,#eee8d1 44% 51%,#88a6a7 52% 100%); content: ""; filter: saturate(.7) blur(.3px); }.v06-photo i { position: absolute; right: 18px; bottom: 11px; color: #777167; font-size: 10px; line-height: 1.2; }
+
+/* 봉투는 정중앙의 컴포넌트가 아니라 우연히 놓인 물건 */
+.v06-envelope { position: absolute; z-index: 10; top: 34%; right: clamp(40px,10vw,150px); width: min(610px,58vw); aspect-ratio: 1.78; perspective: 1600px; filter: drop-shadow(14px 28px 22px rgba(70,52,30,.22)); transform: rotate(-2.2deg); }
+.v06-envelope::before { position: absolute; z-index: 9; top: 62%; left: -8%; width: 60px; height: 14px; opacity: .62; background: #c4af83; clip-path: polygon(1% 7%,100% 0,95% 100%,0 90%); content: ""; transform: rotate(87deg); pointer-events: none; }
+.v06-envelope::after { position: absolute; z-index: -1; right: 1%; bottom: -26px; left: 5%; height: 32px; border-radius: 50%; background: rgba(48,37,24,.17); filter: blur(15px); content: ""; }
+.v06-envelope__back,.v06-envelope__front,.v06-envelope__flap { position: absolute; inset: 0; border: 1px solid rgba(68,52,34,.18); border-radius: 2px; }
+.v06-envelope__back { z-index: 0; background: radial-gradient(ellipse at 12% 85%,rgba(112,76,38,.09),transparent 24%),radial-gradient(ellipse at 91% 12%,rgba(112,76,38,.07),transparent 20%),#e0cbaa; box-shadow: inset 0 0 24px rgba(102,70,35,.08); }
+.v06-envelope__front { z-index: 5; overflow: hidden; clip-path: polygon(0 0,50% 55%,100% 0,100% 100%,0 100%); background: linear-gradient(32deg,transparent 49.5%,rgba(83,61,38,.17) 49.9%,rgba(255,255,255,.18) 50.3%,transparent 50.7%),linear-gradient(-32deg,transparent 49.5%,rgba(83,61,38,.17) 49.9%,rgba(255,255,255,.15) 50.3%,transparent 50.7%),radial-gradient(ellipse at 8% 92%,rgba(115,79,41,.12),transparent 21%),radial-gradient(ellipse at 96% 14%,rgba(124,86,45,.08),transparent 18%),radial-gradient(circle at 20% 40%,rgba(92,69,43,.045) 0 1px,transparent 1.4px) 0 0/14px 17px,#ead8b9; box-shadow: inset 0 -8px 18px rgba(98,68,35,.08),inset 7px 0 14px rgba(98,68,35,.045); pointer-events: none; }
+.v06-envelope__flap { z-index: 6; overflow: hidden; clip-path: polygon(0 0,100% 0,50% 73%); transform-origin: top center; transform-style: preserve-3d; backface-visibility: visible; background: radial-gradient(ellipse at 13% 10%,rgba(118,81,42,.09),transparent 23%),radial-gradient(circle at 70% 20%,rgba(100,73,41,.045) 0 1px,transparent 1.4px) 0 0/14px 17px,#eee0c7; box-shadow: inset 0 7px 15px rgba(104,72,37,.055); pointer-events: none; }
+.v06-stamp { position: absolute; top: 25%; left: 50%; display: grid; width: clamp(80px,10vw,108px); aspect-ratio: 1; place-items: center; border: 2px solid rgba(83,111,118,.64); border-radius: 50%; color: var(--blue); font: 10px/1 ui-monospace,monospace; transform: translate(-50%,-50%) rotate(6deg); }
+.v06-envelope.is-open .v06-stamp { opacity: 0; }
+.v06-stamp strong { font-size: 19px; font-weight: 400; }.v06-stamp small { font-size: 9px; }
+
+.v06-open { position: absolute; z-index: 8; inset: 0; border: 0; cursor: grab; touch-action: none; user-select: none; background: transparent; }
+.v06-open:active { cursor: grabbing; }
+.v06-open:focus-visible,.v06-envelope-memo:focus-visible { outline: 3px solid var(--blue); outline-offset: 7px; }
+.v06-open__label { position: absolute; top: calc(100% + 31px); left: 50%; white-space: nowrap; color: #655f55; font-size: 14px; transform: translateX(-50%) rotate(2deg); }
+.v06-open__label::before { display: inline-block; margin-right: 8px; color: var(--red); content: "↥"; transform: translateY(1px); }
+
+.v06-envelope-memo { position: absolute; z-index: 3; inset: 7% 9% 3%; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(20px,3.5vw,39px); border: 0; color: var(--ink); text-align: left; background: radial-gradient(circle at 12% 18%,rgba(80,55,35,.05) 0 1px,transparent 1.4px) 0 0/15px 18px,var(--paper); box-shadow: 0 10px 22px rgba(59,42,24,.15); cursor: grab; touch-action: pan-x; }
+.v06-envelope-memo:active { cursor: grabbing; }.v06-envelope-memo[aria-disabled="true"] { cursor: default; }
+.v06-envelope-memo small { color: var(--blue); font-size: clamp(13px,1.7vw,18px); border-bottom: 1px solid currentColor; }
+.v06-envelope-memo small,.v06-envelope-memo strong,.v06-envelope-memo i { font-family: "Poor Story","V06 Hand",cursive; }
+.v06-envelope-memo strong { display: flex; margin: auto 0; flex-direction: column; font-size: clamp(27px,3.8vw,48px); font-weight: 400; line-height: 1.12; letter-spacing: .015em; }
+.v06-envelope-memo i { align-self: flex-end; color: var(--red); font-size: 22px; font-style: normal; }.v06-envelope-memo em { position: absolute; right: 16px; bottom: 12px; color: #70695e; font-size: 11px; font-style: normal; }
+.v06-envelope-memo--2 { z-index: 2; right: 10%; left: 10%; width: auto; margin: 0; background-color: #f3eddf; }.v06-envelope-memo--1 { z-index: 3; }
+.v06-tape { position: absolute; top: -11px; left: 50%; width: 94px; height: 27px; opacity: .82; clip-path: polygon(2% 7%,98% 0,95% 94%,0 100%); transform: translateX(-50%) rotate(-2deg); }
+.v06-tape--sand { background: #d4bd88; }.v06-tape--blue { background: #9db7bd; transform: translateX(-50%) rotate(2deg); }
+.v06-one-more { position: absolute; z-index: 13; right: clamp(30px,12vw,185px); bottom: 5%; margin: 0 !important; color: var(--blue); font-size: 16px !important; transform: rotate(-3deg); }
+.v06-one-more span { display: inline-block; margin-right: 6px; animation: v06-bob-up 1.6s ease-in-out infinite; }
+
+/* 아래로 움직이는 것은 페이지 스크롤이 아니라, 같은 책상 위로 시선이 옮겨가는 일 */
+.v06-desk { position: relative; display: grid; min-height: 0; grid-template-columns: repeat(12,1fr); gap: 0; align-items: center; padding: 0 clamp(24px,6vw,80px); isolation: isolate; background: repeating-radial-gradient(circle at 67% 18%,rgba(65,49,32,.035) 0 1px,transparent 1.2px 5px),var(--desk); transition: min-height .5s,padding .5s; }
+.v06-desk::before { position: absolute; z-index: -1; top: 9%; right: 4%; width: min(260px,28vw); aspect-ratio: 1.25; border: 10px solid #f7f1e5; background: linear-gradient(180deg,#9fc4ce 0 45%,#d9e7e2 46% 51%,#789da0 52% 100%); box-shadow: 0 14px 24px rgba(60,52,38,.13); content: ""; opacity: .52; transform: rotate(7deg); }
+.v06-desk::after { position: absolute; z-index: -1; top: 7%; right: 12%; width: 88px; height: 24px; background: rgba(195,181,137,.7); clip-path: polygon(2% 6%,100% 0,96% 100%,0 91%); content: ""; transform: rotate(9deg); }
+.v06-desk.is-visible { min-height: 110svh; padding-block: 120px 180px; }
+.v06-revealed { position: relative; width: 100%; max-width: 430px; aspect-ratio: .82; padding: clamp(34px,5vw,59px); background: radial-gradient(circle at 12% 18%,rgba(80,55,35,.05) 0 1px,transparent 1.4px) 0 0/15px 18px,var(--paper); box-shadow: 12px 24px 34px rgba(62,50,35,.16); clip-path: polygon(1% 1%,99% 0,100% 97%,96% 99%,4% 98%,0 100%); }
+.v06-revealed--1 { grid-column: 2/7; grid-row: 1; transform-origin: center; }.v06-revealed--2 { grid-column: 7/12; grid-row: 1; margin-top: 150px; }
+.v06-revealed small { color: var(--blue); font-size: clamp(16px,2vw,21px); border-bottom: 1px solid currentColor; }
+.v06-revealed small,.v06-revealed p,.v06-revealed i { font-family: "Poor Story","V06 Hand",cursive; }
+.v06-revealed p { display: flex; margin: clamp(40px,6vw,69px) 0 0; flex-direction: column; font-size: clamp(41px,5.2vw,66px); line-height: 1.16; letter-spacing: .01em; }
+.v06-revealed i { position: absolute; right: 12%; bottom: 10%; color: var(--red); font-size: 27px; font-style: normal; }
+.v06-flower { position: absolute; z-index: 2; top: 16%; left: 2%; color: #9d885e; font-size: 62px; opacity: .52; transform: rotate(-13deg); }.v06-leaf { position: absolute; right: 1%; bottom: 11%; color: #62745f; font-size: 90px; opacity: .4; transform: rotate(-38deg); }
+.v06-desk footer { position: absolute; right: 0; bottom: 35px; left: 0; text-align: center; transform: rotate(-1deg); }.v06-desk footer strong { display: block; margin-bottom: 6px; font-size: 18px; font-weight: 400; }.v06-desk footer p { margin: 0; color: #625e55; font-size: 14px; }.v06-desk footer > span { display: block; margin: 8px 0; color: var(--red); font-size: 24px; }.v06-desk footer small { font: 9px ui-monospace,monospace; letter-spacing: .18em; }
+.v06-route-stub { position: absolute; top: 5%; left: -24px; width: 210px; padding: 18px 35px 18px 42px; border-block: 1px dashed rgba(64,58,49,.25); color: #69645a; background: #d8c9ad; font: 9px/1.8 ui-monospace,monospace; letter-spacing: .1em; transform: rotate(-7deg); }.v06-route-stub b { font-size: 10px; }
+
+@keyframes v06-bob-up { 50% { transform: translateY(-5px); } }
+
+@media (max-width: 760px) {
+  .v06-header a { top: 23px; left: 20px; }.v06-header p { top: 24px; right: 18px; min-width: 170px; font-size: 12px; }
+  .v06-arrival { min-height: 900px; }
+  .v06-envelope { top: 315px; right: auto; left: 50%; width: min(90vw,500px); transform: translateX(-50%) rotate(-2deg); }
+  .v06-notebook { top: 28%; right: -34%; width: 230px; height: 310px; padding: 40px 30px; opacity: .68; }.v06-pencil { right: -1%; bottom: 3%; height: 230px; opacity: .76; }.v06-luggage-tag { bottom: 1%; left: -68px; opacity: .85; }.v06-coffee-ring { top: 29%; left: -25px; width: 86px; }.v06-photo { top: 13%; left: -95px; width: 170px; opacity: .68; }
+  .v06-envelope-memo { inset-inline: 7%; }.v06-envelope-memo--2 { right: 10%; left: 10%; }.v06-envelope-memo strong { font-size: clamp(20px,7vw,30px); }.v06-envelope-memo em { font-size: 10px; }
+  .v06-one-more { right: 0; bottom: 42px; left: 0; text-align: center; }
+  .v06-desk { display: flex; flex-direction: column; gap: 72px; }.v06-desk.is-visible { min-height: 1200px; padding: 105px 25px 190px; }.v06-desk::before { top: 32%; right: -15%; width: 210px; }.v06-desk::after { top: 31%; right: 2%; }.v06-revealed { width: min(100%,400px); }.v06-revealed--2 { margin-top: 0; }.v06-flower { top: 4%; left: 3%; }.v06-leaf { right: -3%; bottom: 10%; }
+  .v06-route-stub { top: 2%; left: -70px; opacity: .7; }
+}
+
+@media (max-width: 390px) {
+  .v06-header p { min-width: 155px; font-size: 11px; }.v06-arrival { min-height: 820px; }.v06-envelope { top: 285px; }.v06-open__label { font-size: 12px; }.v06-one-more { bottom: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .v06-envelope-memo { touch-action: auto; }
+}
