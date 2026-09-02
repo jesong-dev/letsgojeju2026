@@ -142,6 +142,11 @@ function MapExperience({
   reducedMotion: boolean;
 }) {
   const selectedChoice = choices.find((choice) => choice.id === selected);
+  const selectedRoute = selected === "walk"
+    ? "M400 54C356 105 250 177 148 226"
+    : selected === "bus"
+      ? "M400 54C400 112 400 170 400 226"
+      : "M400 54C444 105 550 177 652 226";
 
   return (
     <motion.section
@@ -160,10 +165,10 @@ function MapExperience({
           <path className="v07-island" d="M74 241C115 161 206 102 315 83c111-20 258-16 361 35 69 34 89 95 43 145-54 58-175 91-317 97-137 6-263-10-316-53-22-18-25-42-12-66Z" />
           <path className="v07-whisper-road" d="M170 274c73-51 122-77 208-91M448 160c84 24 136 62 190 111M278 325c91-44 174-61 275-50" />
           {selected && (
-            <path
-              className={`v07-route v07-route--${selected}`}
-              d={selected === "walk" ? "M400 54C356 105 250 177 148 226" : selected === "bus" ? "M400 54C400 112 400 170 400 226" : "M400 54C444 105 550 177 652 226"}
-            />
+            <g className="v07-route-rope">
+              <path className={`v07-route v07-route--base v07-route--${selected}`} d={selectedRoute} />
+              <path className={`v07-route v07-route--twist v07-route--${selected}`} d={selectedRoute} />
+            </g>
           )}
         </svg>
       </div>
@@ -190,6 +195,7 @@ function MapExperience({
             className={`v07-choice v07-choice--${choice.id} ${selected === choice.id ? "is-selected" : ""}`}
             style={{ "--choice-color": choice.color } as React.CSSProperties}
             type="button"
+            aria-label={`${choice.label}, ${choice.mood}`}
             aria-pressed={selected === choice.id}
             aria-disabled="false"
             onClick={() => onChoose(choice.id)}
@@ -200,8 +206,10 @@ function MapExperience({
               }
             }}
           >
-            <span><TransportIcon id={choice.id} /></span>
-            <strong>{choice.label}</strong>
+            <span className="v07-choice__paper">
+              <TransportIcon id={choice.id} />
+              <strong>{choice.label}</strong>
+            </span>
             <small>{choice.mood}</small>
           </button>
         ))}
