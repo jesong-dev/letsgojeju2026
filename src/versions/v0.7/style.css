@@ -186,7 +186,7 @@
   max-height: none;
   aspect-ratio: 2 / 3;
   border-radius: 0;
-  background: url("/assets/v0.7/jeju-map-paper.png") center/100% 100% no-repeat;
+  background: url("/assets/v0.7/jeju-map-paper.webp") center/100% 100% no-repeat;
   box-shadow: 10px 19px 28px rgba(55,40,25,.2);
 }
 .v07-map::before { display: none; }

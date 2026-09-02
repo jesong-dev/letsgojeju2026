@@ -8,6 +8,7 @@ type Phase = "closed" | "folded" | "map" | "chosen";
 type ChoiceId = "walk" | "bus" | "taxi";
 
 const paperEase = [0.22, 1, 0.36, 1] as const;
+const mapArtworkUrl = `${import.meta.env.BASE_URL}assets/v0.7/jeju-map-paper.webp`;
 
 const choices: Array<{
   id: ChoiceId;
@@ -239,6 +240,14 @@ function App() {
     setPhase("chosen");
   };
 
+  const openEnvelope = () => {
+    const mapArtwork = new Image();
+    mapArtwork.decoding = "async";
+    mapArtwork.src = mapArtworkUrl;
+    void mapArtwork.decode().catch(() => undefined);
+    setPhase("folded");
+  };
+
   return (
     <main className={`v07-site phase-${phase}`}>
       <header className="v07-header">
@@ -254,7 +263,7 @@ function App() {
 
       <div className="v07-stage">
         <AnimatePresence mode="wait">
-          {phase === "closed" && <Envelope key="envelope" onOpen={() => setPhase("folded")} reducedMotion={reducedMotion} />}
+          {phase === "closed" && <Envelope key="envelope" onOpen={openEnvelope} reducedMotion={reducedMotion} />}
           {phase === "folded" && <FoldedMap key="folded" onUnfold={() => setPhase("map")} reducedMotion={reducedMotion} />}
           {(phase === "map" || phase === "chosen") && <MapExperience key="map" selected={selected} onChoose={choose} reducedMotion={reducedMotion} />}
         </AnimatePresence>
