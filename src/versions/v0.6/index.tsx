@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { RevealedMemo } from "./RevealedMemo";
 import "./style.css";
 
 type Step = "closed" | "opened" | "memo1" | "memo2";
@@ -60,26 +61,6 @@ function Memo({
       <i aria-hidden="true">{isFirst ? ":)" : "〜"}</i>
       {available && <em>{reducedMotion ? "눌러서 꺼내기" : "위로 당겨 꺼내기"}</em>}
     </motion.button>
-  );
-}
-
-function RevealedMemo({ number }: { number: 1 | 2 }) {
-  const lines = number === 1
-    ? ["하늘이", "조금 더", "특별했으면", "좋겠습니다."]
-    : ["누군가", "먼저", "인사해 줄지도", "모릅니다."];
-
-  return (
-    <motion.article
-      className={`v06-revealed v06-revealed--${number}`}
-      initial={{ opacity: 0, y: 70, rotate: number === 1 ? -5 : 5 }}
-      animate={{ opacity: 1, y: 0, rotate: number === 1 ? -1.3 : 1.1 }}
-      transition={{ duration: 0.85, ease: paperEase }}
-    >
-      <span className={`v06-tape v06-tape--${number === 1 ? "sand" : "blue"}`} />
-      <small>From. 제주</small>
-      <p>{lines.map((line) => <span key={line}>{line}</span>)}</p>
-      <i aria-hidden="true">{number === 1 ? ":)" : "〜"}</i>
-    </motion.article>
   );
 }
 

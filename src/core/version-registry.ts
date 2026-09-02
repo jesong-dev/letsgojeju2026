@@ -27,6 +27,15 @@ export const jejuVersions: readonly JejuVersion[] = [
     releasedAt: "2026-08-28",
     description: "봉투에서 두 장의 메모를 차례로 직접 꺼내며 제주를 상상하는 작은 우편 경험.",
     path: sitePath("v0.6/"),
+    status: "archived"
+  },
+  {
+    id: "v0.7",
+    title: "여행의 첫 번째 선택",
+    subtitle: "공항 밖으로, 어떻게 시작할까요?",
+    releasedAt: "2026-09-02",
+    description: "봉투 속 접힌 지도를 펼치고 제주공항에서 여행을 시작하는 방법 하나를 고르는 짧은 참여 경험.",
+    path: sitePath("v0.7/"),
     status: "published"
   }
 ] as const;
