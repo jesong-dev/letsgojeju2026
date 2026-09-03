@@ -153,15 +153,15 @@ function MapExperience({
   const selectedChoice = choices.find((choice) => choice.id === selected);
   const selectedRoute = isCompactMap
     ? selected === "walk"
-      ? "M400 54C350 102 274 174 203 214"
+      ? "M400 107C365 118 329 151 292 177S232 204 203 214"
       : selected === "bus"
-        ? "M400 54C400 104 400 162 400 214"
-        : "M400 54C450 102 526 174 597 214"
+        ? "M400 107C394 137 406 173 400 214"
+        : "M400 107C438 120 469 151 510 176S570 201 597 214"
     : selected === "walk"
-      ? "M400 54C352 100 270 166 184 202"
+      ? "M400 100C356 113 323 143 282 163S214 190 184 202"
       : selected === "bus"
-        ? "M400 54C400 102 400 154 400 202"
-        : "M400 54C448 100 530 166 616 202";
+        ? "M400 100C394 129 406 166 400 202"
+        : "M400 100C444 114 477 142 520 163S587 188 616 202";
 
   return (
     <motion.section
@@ -189,7 +189,10 @@ function MapExperience({
       </div>
 
       <div className="v07-airport">
-        <span className="v07-plane" aria-hidden="true">✈</span>
+        <span className="v07-plane" aria-hidden="true">
+          <span>✈</span>
+          <b>CJU</b>
+        </span>
         <strong>제주공항</strong>
       </div>
 
