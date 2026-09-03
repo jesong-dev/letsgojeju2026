@@ -94,6 +94,9 @@
 .v07-result .v06-revealed i { position: absolute; right: 12%; bottom: 10%; color: var(--airmail-red); font: 20px "Poor Story",cursive; font-style: normal; }
 .v07-result .v06-revealed--1 i,.v07-result .v06-revealed--3 i { font-family: "Segoe UI Emoji","Apple Color Emoji",sans-serif; font-size: 27px; }
 .v07-result .v06-tape { position: absolute; top: -9px; left: 50%; width: 76px; height: 22px; opacity: .82; clip-path: polygon(2% 7%,98% 0,95% 94%,0 100%); transform: translateX(-50%) rotate(2deg); background: #9db7bd; }
+.v07-ending { position: absolute; z-index: 8; right: 8%; bottom: 2.4%; left: 8%; color: rgba(59,53,44,.82); text-align: center; pointer-events: none; }
+.v07-ending p { margin: 0; font: 12px/1.45 "Poor Story",cursive; letter-spacing: .025em; }
+.v07-ending small { display: inline-block; margin-top: 5px; padding-top: 3px; border-top: 1px solid rgba(73,100,111,.25); color: rgba(53,87,105,.66); font: 8px/1.2 ui-monospace,monospace; letter-spacing: .12em; text-transform: uppercase; }
 
 .v07-footer { position: absolute; z-index: 30; right: clamp(20px,4vw,48px); bottom: 18px; left: clamp(20px,4vw,48px); display: flex; justify-content: space-between; color: #706a60; font: 9px ui-monospace,monospace; letter-spacing: .12em; pointer-events: none; }
 
@@ -183,6 +186,9 @@
   .v07-result { top: 49%; right: 9%; left: 9%; }
   .v07-result .v06-revealed { padding: 20px 24px; }
   .v07-result .v06-revealed p { margin-top: 14px; font-size: 21px; }
+  .v07-ending { right: 4%; bottom: 2.1%; left: 4%; }
+  .v07-ending p { font-size: 12px; }
+  .v07-ending small { font-size: 9px; }
 }
 
 @media (max-width: 390px) {

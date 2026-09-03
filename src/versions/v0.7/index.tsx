@@ -151,6 +151,9 @@ function MapExperience({
   }, []);
 
   const selectedChoice = choices.find((choice) => choice.id === selected);
+  const selectedPreviewDuration = selectedChoice
+    ? selectedChoice.id === "walk" ? 1.25 : selectedChoice.id === "bus" ? 0.85 : 0.55
+    : 0;
   const selectedRoute = isCompactMap
     ? selected === "walk"
       ? "M400 107C365 118 329 151 292 177S232 204 203 214"
@@ -243,9 +246,28 @@ function MapExperience({
             <RevealedMemo
               number={selectedChoice.id === "walk" ? 1 : selectedChoice.id === "bus" ? 2 : 3}
               showSymbol={false}
-              previewDuration={selectedChoice.id === "walk" ? 1.25 : selectedChoice.id === "bus" ? 0.85 : 0.55}
+              previewDuration={selectedPreviewDuration}
             />
           </div>
+      )}
+
+      {selectedChoice && (
+        <motion.div
+          key={`ending-${selectedChoice.id}`}
+          className="v07-ending"
+          aria-label="v0.7 마지막 장"
+          initial={{ opacity: 0, y: reducedMotion ? 0 : 9 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: reducedMotion ? 0 : .9,
+            delay: reducedMotion ? 0 : selectedPreviewDuration + 1.05,
+            ease: paperEase
+          }}
+        >
+          <p>여행의 첫 점을 찍었습니다.</p>
+          <p>다음 편지는, 조금 더 가까워졌을 때.</p>
+          <small>v0.7 · 여기까지</small>
+        </motion.div>
       )}
     </motion.section>
   );
