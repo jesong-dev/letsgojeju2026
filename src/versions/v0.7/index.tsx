@@ -141,12 +141,27 @@ function MapExperience({
   onChoose: (id: ChoiceId) => void;
   reducedMotion: boolean;
 }) {
+  const [isCompactMap, setIsCompactMap] = useState(() => window.matchMedia("(max-width: 720px)").matches);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 720px)");
+    const syncMapSize = () => setIsCompactMap(media.matches);
+    media.addEventListener("change", syncMapSize);
+    return () => media.removeEventListener("change", syncMapSize);
+  }, []);
+
   const selectedChoice = choices.find((choice) => choice.id === selected);
-  const selectedRoute = selected === "walk"
-    ? "M400 54C352 100 270 166 184 202"
-    : selected === "bus"
-      ? "M400 54C400 102 400 154 400 202"
-      : "M400 54C448 100 530 166 616 202";
+  const selectedRoute = isCompactMap
+    ? selected === "walk"
+      ? "M400 54C350 102 274 174 203 214"
+      : selected === "bus"
+        ? "M400 54C400 104 400 162 400 214"
+        : "M400 54C450 102 526 174 597 214"
+    : selected === "walk"
+      ? "M400 54C352 100 270 166 184 202"
+      : selected === "bus"
+        ? "M400 54C400 102 400 154 400 202"
+        : "M400 54C448 100 530 166 616 202";
 
   return (
     <motion.section
