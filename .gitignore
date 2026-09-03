@@ -9,3 +9,6 @@ dist/
 
 .DS_Store
 Thumbs.db
+
+# Managed in the private letsgojeju2026-lab repository.
+/docs/
