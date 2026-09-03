@@ -9,8 +9,3 @@ export interface JejuVersion {
   path: string;
   status: VersionStatus;
 }
-
-export interface VersionNeighbors {
-  previous?: JejuVersion;
-  next?: JejuVersion;
-}

@@ -1,7 +1,34 @@
-import type { JejuVersion, VersionNeighbors } from "./types";
+import type { JejuVersion } from "./types";
 import { sitePath } from "./paths";
 
 export const jejuVersions: readonly JejuVersion[] = [
+  {
+    id: "v0.1",
+    title: "시작합니다",
+    subtitle: "일상은 잠시 접어두고, 제주로",
+    releasedAt: "2026-06-30",
+    description: "봉투를 열어 제주로 향하는 첫 탑승권을 발견하는 최초의 여행 초대장.",
+    path: sitePath("v0.1/"),
+    status: "archived"
+  },
+  {
+    id: "v0.2",
+    title: "날짜 선택",
+    subtitle: "언제 제주로 떠날까요?",
+    releasedAt: "2026-07-03",
+    description: "봉투 속 탑승권을 열고 10월의 여행 날짜와 숙소 취향을 함께 고르는 초대장.",
+    path: sitePath("v0.2/"),
+    status: "archived"
+  },
+  {
+    id: "v0.3",
+    title: "일정 확정",
+    subtitle: "2026.10.04 ~ 06",
+    releasedAt: "2026-07-03",
+    description: "함께 떠날 제주 여행의 날짜가 확정된 순간을 탑승권에 담은 초대장.",
+    path: sitePath("v0.3/"),
+    status: "archived"
+  },
   {
     id: "v0.4",
     title: "축! 숙소 결정",
@@ -60,16 +87,4 @@ export function getCurrentVersion(): JejuVersion {
 
 export function getVersion(id: string): JejuVersion | undefined {
   return jejuVersions.find((version) => version.id === id);
-}
-
-export function getVersionNeighbors(id: string): VersionNeighbors {
-  const versions = getPublishedVersions();
-  const index = versions.findIndex((version) => version.id === id);
-
-  if (index < 0) return {};
-
-  return {
-    previous: versions[index - 1],
-    next: versions[index + 1]
-  };
 }

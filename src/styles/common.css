@@ -162,11 +162,6 @@
 .not-found-shell h1 { font-size: clamp(32px, 10vw, 48px); }
 .not-found-shell p { color: var(--color-muted); line-height: 1.7; }
 
-.version-navigation { display: flex; align-items: center; justify-content: center; }
-.version-navigation__archive { text-underline-offset: 4px; }
-.version-navigation__link { display: grid; }
-.photo-card { margin: 0; }
-
 @media (max-width: 380px) {
   .archive-entry a { grid-template-columns: 46px 1fr; }
   .archive-entry time { grid-column: 2; }
