@@ -143,10 +143,10 @@ function MapExperience({
 }) {
   const selectedChoice = choices.find((choice) => choice.id === selected);
   const selectedRoute = selected === "walk"
-    ? "M400 54C356 105 250 177 148 226"
+    ? "M400 54C352 100 270 166 184 202"
     : selected === "bus"
-      ? "M400 54C400 112 400 170 400 226"
-      : "M400 54C444 105 550 177 652 226";
+      ? "M400 54C400 102 400 154 400 202"
+      : "M400 54C448 100 530 166 616 202";
 
   return (
     <motion.section
@@ -166,7 +166,7 @@ function MapExperience({
           <path className="v07-whisper-road" d="M170 274c73-51 122-77 208-91M448 160c84 24 136 62 190 111M278 325c91-44 174-61 275-50" />
           {selected && (
             <g className="v07-route-rope">
-              <path className={`v07-route v07-route--base v07-route--${selected}`} d={selectedRoute} />
+              <path className={`v07-route v07-route--base v07-route--${selected}`} d={selectedRoute} pathLength="1" />
               <path className={`v07-route v07-route--twist v07-route--${selected}`} d={selectedRoute} />
             </g>
           )}
