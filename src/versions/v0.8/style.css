@@ -200,6 +200,13 @@
   .v08-timepiece { right: 13%; bottom: 14%; width: clamp(57px, 17vw, 74px); }
   .v08-mark { color: rgba(250, 246, 237, .92); text-shadow: 0 1px 7px rgba(24,19,13,.72); }
   .v08-ending { top: 38.5%; width: calc(100vw - 38px); }
+  .v08-ending__rule { background: rgba(70,65,58,.48); }
+  .v08-ending__last {
+    color: rgba(62,57,51,.92);
+    font-size: clamp(14px, 4vw, 16px);
+    font-weight: 600;
+    letter-spacing: .025em;
+  }
 }
 
 @media (orientation: portrait) and (max-width: 720px) {
