@@ -45,7 +45,7 @@
 .v08-window-motion {
   position: absolute;
   z-index: -1;
-  top: 31%;
+  top: 42%;
   left: 50%;
   width: min(48vw, 740px);
   height: min(30vw, 330px);
@@ -196,7 +196,7 @@
 
 @media (max-width: 720px) {
   .v08-room { background-position: 50% center; }
-  .v08-window-motion { top: 43%; width: 100vw; height: 32vh; }
+  .v08-window-motion { top: 43%; left: 50%; width: 100vw; height: 32vh; }
   .v08-timepiece { right: 13%; bottom: 14%; width: clamp(57px, 17vw, 74px); }
   .v08-mark { color: rgba(250, 246, 237, .92); text-shadow: 0 1px 7px rgba(24,19,13,.72); }
   .v08-ending { top: 38.5%; width: calc(100vw - 38px); }
