@@ -63,6 +63,15 @@ export const jejuVersions: readonly JejuVersion[] = [
     releasedAt: "2026-09-02",
     description: "봉투 속 접힌 지도를 펼치고 제주공항에서 여행을 시작하는 방법 하나를 고르는 짧은 참여 경험.",
     path: sitePath("v0.7/"),
+    status: "archived"
+  },
+  {
+    id: "v0.8",
+    title: "창가에서",
+    subtitle: "여덟 번째 제주 이야기",
+    releasedAt: "2026-09-07",
+    description: "창밖의 잔잔한 파도와 흐르는 모래를 바라보며, 설명 없이 실제 10초를 잠시 쉬어보는 프로토타입.",
+    path: sitePath("v0.8/"),
     status: "published"
   }
 ] as const;
