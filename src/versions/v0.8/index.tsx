@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useRef, useState } from "react";
 import "./style.css";
+import { sitePath } from "../../core/paths";
 
 const DURATION = 10_000;
 
@@ -30,35 +31,80 @@ function Hourglass({ progress }: { progress: number }) {
 function App() {
   const [progress, setProgress] = useState(0);
   const [finished, setFinished] = useState(false);
-  const startRef = useRef<number | null>(null);
+  const sceneRef = useRef<HTMLElement>(null);
+  const [ready, setReady] = useState(false);
+  const [visible, setVisible] = useState(!document.hidden);
 
   useEffect(() => {
     document.body.className = "version-v0-8";
+    const image = new Image();
+    let disposed = false;
+    const begin = () => { if (!disposed) setReady(true); };
+    image.onload = () => { void image.decode().catch(() => {}).then(begin); };
+    image.onerror = begin;
+    image.src = sitePath("assets/v0.8/window-room.webp");
+    const fallback = window.setTimeout(begin, 8000);
+    const onVisibility = () => setVisible(!document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    const scene = sceneRef.current!;
+    const resize = new ResizeObserver(() => {
+      // Match the existing centered cover crop; only the effect plane is resized.
+      const scale = Math.max(scene.clientWidth / 1536, scene.clientHeight / 1024);
+      scene.style.setProperty("--image-width", `${1536 * scale}px`);
+      scene.style.setProperty("--image-height", `${1024 * scale}px`);
+    });
+    resize.observe(scene);
+    return () => {
+      disposed = true;
+      clearTimeout(fallback);
+      image.onload = image.onerror = null;
+      resize.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+      document.body.className = "";
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
     let frame = 0;
+    let elapsed = 0;
+    let previous: number | null = null;
 
     const tick = (time: number) => {
-      if (startRef.current === null) startRef.current = time;
-      const next = Math.min((time - startRef.current) / DURATION, 1);
+      if (previous !== null) elapsed += time - previous;
+      previous = time;
+      const next = Math.min(elapsed / DURATION, 1);
       setProgress(next);
       if (next < 1) frame = requestAnimationFrame(tick);
       else setFinished(true);
     };
 
-    frame = requestAnimationFrame(tick);
+    const resume = () => {
+      cancelAnimationFrame(frame);
+      if (document.hidden && previous !== null) elapsed += performance.now() - previous;
+      previous = null;
+      if (!document.hidden && elapsed < DURATION) frame = requestAnimationFrame(tick);
+      else if (!document.hidden) { setProgress(1); setFinished(true); }
+    };
+    document.addEventListener("visibilitychange", resume);
+    resume();
     return () => {
       cancelAnimationFrame(frame);
-      document.body.className = "";
+      document.removeEventListener("visibilitychange", resume);
     };
-  }, []);
+  }, [ready]);
 
   return (
-    <main className={`v08-scene ${finished ? "is-finished" : ""}`}>
-      <div className="v08-room" aria-hidden="true" />
-      <div className="v08-window-motion" aria-hidden="true">
-        <span className="v08-wave v08-wave--one" />
-        <span className="v08-wave v08-wave--two" />
-        <span className="v08-wave v08-wave--three" />
-        <span className="v08-glint" />
+    <main ref={sceneRef} className={`v08-scene ${finished ? "is-finished" : ""} ${ready ? "is-ready" : ""} ${visible ? "" : "is-paused"}`}>
+      <div className="v08-room" aria-hidden="true">
+        <div className="v08-image-plane">
+          <div className="v08-window-motion">
+            <span className="v08-wave v08-wave--one" />
+            <span className="v08-wave v08-wave--two" />
+            <span className="v08-wave v08-wave--three" />
+            <span className="v08-glint" />
+          </div>
+        </div>
       </div>
       <span className="v08-curtain-event" aria-hidden="true" />
 
